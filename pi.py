@@ -218,6 +218,47 @@ class my_display:
     def __del__(self):
         "Destructor to make sure pygame shuts down, etc."
 
+    def displayBg(self):
+            #determine what background image should be applied
+            backgroundSwitch = self.weather.icon
+
+            #Determine what background image to set based on forecast's weather.icon
+            if(backgroundSwitch == 'clear-day'):
+                background_img = 'cleardaybg'
+            elif(backgroundSwitch == 'clear-night'):
+                background_img = 'clearnightbg'
+            elif(backgroundSwitch == 'rain'):
+                background_img = 'rainbg'
+            elif(backgroundSwitch == 'snow'):
+                background_img = 'snowbg'
+            elif(backgroundSwitch == 'sleet'):
+                background_img = 'sleetbg'
+            elif(backgroundSwitch == 'wind'):
+                background_img = 'windbg'
+            elif(backgroundSwitch == 'fog'):
+                background_img = 'fogbg'
+            elif(backgroundSwitch == 'cloudy'):
+                background_img = 'cloudybg'
+            elif(backgroundSwitch == 'partly-cloudy-day'):
+                background_img = 'partlycloudydaybg'
+            elif(backgroundSwitch == 'partly-cloudy-night'):
+                background_img = 'partlycloudynightbg'
+            else:
+                background_img = 'cleardaybg'
+
+            #currentTime = datetime.datetime.now().strftime("%H")
+            #print currentTime
+            #if(currentTime > 24):
+            #    background_img = 'fogbg'
+
+            #Load Background Image
+            background = pygame.image.load(
+                background_mapping(background_img, '50')).convert_alpha()
+            #Set Fullscreen
+            background = pygame.transform.scale(background, (480, 320))
+            #Display background image
+            self.screen.blit(background, (0, 0))
+
     def get_forecast(self):
         if ((time.time() - self.last_update_check) > config.DS_CHECK_INTERVAL):
             self.last_update_check = time.time()
@@ -267,9 +308,7 @@ class my_display:
                         if is_today and is_daylight_hr and rain_chance >= .25:
                             self.take_umbrella = True
                             break
-
-                #determine what background image should be applied
-                backgroundSwitch = self.weather.icon
+                my_disp.displayBg()
 
             except requests.exceptions.RequestException as e:
                 print('Request exception: ' + str(e))
@@ -415,37 +454,7 @@ class my_display:
         text_color = (255, 255, 255)
         font_name = "freesans"
 
-        #Determine what background image to set based on forecast's weather.icon
-        if(backgroundSwitch == 'clear-day'):
-            background_img = 'cleardaybg'
-        elif(backgroundSwitch == 'clear-night'):
-            background_img = 'clearnightbg'
-        elif(backgroundSwitch == 'rain'):
-            background_img = 'rainbg'
-        elif(backgroundSwitch == 'snow'):
-            background_img = 'snowbg'
-        elif(backgroundSwitch == 'sleet'):
-            background_img = 'sleetbg'
-        elif(backgroundSwitch == 'wind'):
-            background_img = 'windbg'
-        elif(backgroundSwitch == 'fog'):
-            background_img = 'fogbg'
-        elif(backgroundSwitch == 'cloudy'):
-            background_img = 'cloudybg'
-        elif(backgroundSwitch == 'partly-cloudy-day'):
-            background_img = 'partlycloudydaybg'
-        elif(backgroundSwitch == 'partly-cloudy-night'):
-            background_img = 'partlycloudynightbg'
-        else:
-            background_img = 'cleardaybg'
-
-        #Load Background Image
-        background = pygame.image.load(
-            background_mapping(background_img, '50')).convert_alpha()
-        #Set Fullscreen
-        background = pygame.transform.scale(background, (480, 320))
-        #Display background image
-        self.screen.blit(background, (0, 0))
+        my_disp.displayBg()
 
         self.draw_screen_border(line_color, xmin, lines)
         self.disp_time_date(font_name, text_color)
@@ -503,37 +512,7 @@ class my_display:
         text_color = (255, 255, 255)
         font_name = "freesans"
 
-        #Determine what background image to set based on forecast's weather.icon
-        if(backgroundSwitch == 'clear-day'):
-            background_img = 'cleardaybg'
-        elif(backgroundSwitch == 'clear-night'):
-            background_img = 'clearnightbg'
-        elif(backgroundSwitch == 'rain'):
-            background_img = 'rainbg'
-        elif(backgroundSwitch == 'snow'):
-            background_img = 'snowbg'
-        elif(backgroundSwitch == 'sleet'):
-            background_img = 'sleetbg'
-        elif(backgroundSwitch == 'wind'):
-            background_img = 'windbg'
-        elif(backgroundSwitch == 'fog'):
-            background_img = 'fogbg'
-        elif(backgroundSwitch == 'cloudy'):
-            background_img = 'cloudybg'
-        elif(backgroundSwitch == 'partly-cloudy-day'):
-            background_img = 'partlycloudydaybg'
-        elif(backgroundSwitch == 'partly-cloudy-night'):
-            background_img = 'partlycloudynightbg'
-        else:
-            background_img = 'cleardaybg'
-
-        #Load Background Image
-        background = pygame.image.load(
-            background_mapping(background_img, '50')).convert_alpha()
-        #Set Fullscreen
-        background = pygame.transform.scale(background, (480, 320))
-        #Display background image
-        self.screen.blit(background, (0, 0))
+        my_disp.displayBg()
 
         self.draw_screen_border(line_color, xmin, lines)
         self.disp_time_date(font_name, text_color)
@@ -690,37 +669,7 @@ class my_display:
         text_color = (255, 255, 255)
         font_name = "freesans"
 
-        #Determine what background image to set based on forecast's weather.icon
-        if(backgroundSwitch == 'clear-day'):
-            background_img = 'cleardaybg'
-        elif(backgroundSwitch == 'clear-night'):
-            background_img = 'clearnightbg'
-        elif(backgroundSwitch == 'rain'):
-            background_img = 'rainbg'
-        elif(backgroundSwitch == 'snow'):
-            background_img = 'snowbg'
-        elif(backgroundSwitch == 'sleet'):
-            background_img = 'sleetbg'
-        elif(backgroundSwitch == 'wind'):
-            background_img = 'windbg'
-        elif(backgroundSwitch == 'fog'):
-            background_img = 'fogbg'
-        elif(backgroundSwitch == 'cloudy'):
-            background_img = 'cloudybg'
-        elif(backgroundSwitch == 'partly-cloudy-day'):
-            background_img = 'partlycloudydaybg'
-        elif(backgroundSwitch == 'partly-cloudy-night'):
-            background_img = 'partlycloudynightbg'
-        else:
-            background_img = 'cleardaybg'
-
-        #Load Background Image
-        background = pygame.image.load(
-            background_mapping(background_img, '50')).convert_alpha()
-        #Set Fullscreen
-        background = pygame.transform.scale(background, (480, 320))
-        #Display background image
-        self.screen.blit(background, (0, 0))
+        my_disp.displayBg()
 
         # Draw Screen Border
         #pygame.draw.line(self.screen, line_color,
