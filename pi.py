@@ -114,25 +114,28 @@ def icon_mapping(icon, size):
 
 def background_mapping(bg, size):
     if bg == 'cleardaybg':
-            bg_path = 'icons/cleardaybg.png'.format(size)
+        bg_path = 'icons/cleardaybg.png'.format(size)
     elif bg == 'clearnightbg':
-                bg_path = 'icons/clearnightbg.png'.format(size)
+        bg_path = 'icons/clearnightbg.png'.format(size)
     elif bg == 'rainbg':
-                bg_path = 'icons/rainbg.png'.format(size)
+        bg_path = 'icons/rainbg.png'.format(size)
     elif bg == 'snowbg':
-                bg_path = 'icons/snowbg.png'.format(size)
+        bg_path = 'icons/snowbg.png'.format(size)
     elif bg == 'sleetbg':
-                bg_path = 'icons/sleetbg.png'.format(size)
+        bg_path = 'icons/sleetbg.png'.format(size)
     elif bg == 'windbg':
-                bg_path = 'icons/windbg.png'.format(size)
+        bg_path = 'icons/windbg.png'.format(size)
     elif bg == 'fogbg':
-                bg_path = 'icons/fogbg.png'.format(size)
+        bg_path = 'icons/fogbg.png'.format(size)
     elif bg == 'cloudybg':
-                bg_path = 'icons/cloudybg.png'.format(size)
+        bg_path = 'icons/cloudybg.png'.format(size)
     elif bg == 'partlycloudybg':
-                bg_path = 'icons/partlycloudybg.png'.format(size)
+        bg_path = 'icons/partlycloudybg.png'.format(size)
     elif bg == 'partlycloudynightbg':
-                bg_path = 'icons/partlycloudynightbg.png'.format(size)
+        bg_path = 'icons/partlycloudynightbg.png'.format(size)
+    else:
+        bg_path = 'icons/unknownbg.png'.format(size)
+
 
     return bg_path
 
