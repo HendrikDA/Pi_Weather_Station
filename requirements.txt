@@ -1,0 +1,5 @@
+darkskylib
+pygame
+pyserial
+requests
+future

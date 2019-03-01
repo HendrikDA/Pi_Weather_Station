@@ -129,10 +129,12 @@ def background_mapping(bg, size):
         bg_path = 'icons/fogbg.png'.format(size)
     elif bg == 'cloudybg':
         bg_path = 'icons/cloudybg.png'.format(size)
-    elif bg == 'partlycloudybg':
+    elif bg == 'partlycloudydaybg':
         bg_path = 'icons/partlycloudybg.png'.format(size)
     elif bg == 'partlycloudynightbg':
         bg_path = 'icons/partlycloudynightbg.png'.format(size)
+    elif bg == 'mostlycloudybg':
+        bg_path = 'icons/mostlycloudy.png'.format(size)
     else:
         bg_path = 'icons/unknownbg.png'.format(size)
 
@@ -246,6 +248,8 @@ class my_display:
                 background_img = 'partlycloudydaybg'
             elif(backgroundSwitch == 'partly-cloudy-night'):
                 background_img = 'partlycloudynightbg'
+            elif(backgroundSwitch == 'mostly-cloudy'):
+                background_img = 'mostlycloudybg'
             else:
                 background_img = 'cleardaybg'
 
