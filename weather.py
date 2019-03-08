@@ -253,11 +253,6 @@ class my_display:
             else:
                 background_img = 'cleardaybg'
 
-            #currentTime = datetime.datetime.now().strftime("%H")
-            #print currentTime
-            #if(currentTime > 24):
-            #    background_img = 'fogbg'
-
             #Load Background Image
             background = pygame.image.load(
                 background_mapping(background_img, '50')).convert_alpha()
@@ -453,8 +448,6 @@ class my_display:
             self.ymax * y_start_position))
 
     def disp_weather(self):
-        # Fill the screen with black
-        #self.screen.fill((0, 0, 0))
         xmin = 10
         lines = 5
         line_color = (255, 255, 255)
@@ -506,6 +499,13 @@ class my_display:
             this_day_string = this_day_no.strftime("%A")
             multiplier += 2
             self.display_subwindow(this_day, this_day_string, multiplier)
+
+        # Fill the screen with black
+        currentHour = datetime.datetime.now().strftime("%H")
+        print "current hour: " + currentHour
+        if (currentHour >= '22'  or currentHour < '7'):
+            self.screen.fill((0, 0, 0))
+            #print currentHour
 
         # Update the display
         pygame.display.update()
