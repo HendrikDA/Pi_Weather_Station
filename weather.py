@@ -223,6 +223,12 @@ class my_display:
     def __del__(self):
         "Destructor to make sure pygame shuts down, etc."
 
+    def screenBlack(self):
+        # Fill the screen with black
+        currentHour = datetime.datetime.now().strftime("%H")
+        if (currentHour >= '23'  or currentHour < '7'):
+            self.screen.fill((0, 0, 0))
+
     def displayBg(self):
             #determine what background image should be applied
             backgroundSwitch = self.weather.icon
@@ -311,6 +317,7 @@ class my_display:
                             self.take_umbrella = True
                             break
                 my_disp.displayBg()
+                my_disp.screenBlack()
 
             except requests.exceptions.RequestException as e:
                 print('Request exception: ' + str(e))
@@ -455,6 +462,7 @@ class my_display:
         font_name = "freesans"
 
         my_disp.displayBg()
+        my_disp.screenBlack()
 
         self.draw_screen_border(line_color, xmin, lines)
         self.disp_time_date(font_name, text_color)
@@ -500,14 +508,8 @@ class my_display:
             multiplier += 2
             self.display_subwindow(this_day, this_day_string, multiplier)
 
-        # Fill the screen with black
-        currentHour = datetime.datetime.now().strftime("%H")
-        print "current hour: " + currentHour
-        if (currentHour >= '22'  or currentHour < '7'):
-            self.screen.fill((0, 0, 0))
-            #print currentHour
-
         # Update the display
+        my_disp.screenBlack()
         pygame.display.update()
 
     def disp_hourly(self):
@@ -520,6 +522,7 @@ class my_display:
         font_name = "freesans"
 
         my_disp.displayBg()
+        my_disp.screenBlack()
 
         self.draw_screen_border(line_color, xmin, lines)
         self.disp_time_date(font_name, text_color)
@@ -581,6 +584,7 @@ class my_display:
             self.display_subwindow(this_hour, this_hour_string, multiplier)
 
         # Update the display
+        my_disp.screenBlack()
         pygame.display.update()
 
     def disp_current_temp(self, font_name, text_color):
@@ -677,6 +681,7 @@ class my_display:
         font_name = "freesans"
 
         my_disp.displayBg()
+        my_disp.screenBlack()
 
         # Draw Screen Border
         #pygame.draw.line(self.screen, line_color,
@@ -746,6 +751,7 @@ class my_display:
         self.sPrint(text, small_font, self.xmax * 0.05, 11, text_color)
 
         # Update the display
+        my_disp.screenBlack()
         pygame.display.update()
 
     # Save a jpg image of the screen.
