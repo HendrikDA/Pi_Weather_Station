@@ -226,8 +226,10 @@ class my_display:
     def screenBlack(self):
         # Fill the screen with black
         currentHour = datetime.datetime.now().strftime("%H")
-        if (currentHour >= '23'  or currentHour < '7'):
+        if (currentHour < '07' or currentHour > '22'):
             self.screen.fill((0, 0, 0))
+        #else:
+        #    self.screen.fill((0, 0, 0, 50))
 
     def displayBg(self):
             #determine what background image should be applied
@@ -317,7 +319,6 @@ class my_display:
                             self.take_umbrella = True
                             break
                 my_disp.displayBg()
-                my_disp.screenBlack()
 
             except requests.exceptions.RequestException as e:
                 print('Request exception: ' + str(e))
@@ -427,6 +428,10 @@ class my_display:
                                  line_spacing_gap
                                  * 1.2) + icon_y_offset))
 
+        #Screen should be off?
+        my_disp.screenBlack()
+
+
     def disp_summary(self):
         y_start_position = 0.444
         conditions_text_height = 0.04
@@ -439,6 +444,9 @@ class my_display:
         txt_x = txt.get_size()[0]
         x = self.xmax * 0.27 - (txt_x * 1.02) / 2
         self.screen.blit(txt, (x, self.ymax * y_start_position))
+
+        #check if screen should be off
+        my_disp.screenBlack()
 
     def disp_umbrella_info(self, umbrella_txt):
         x_start_position = 0.52
@@ -453,6 +461,8 @@ class my_display:
         self.screen.blit(txt, (
             self.xmax * x_start_position,
             self.ymax * y_start_position))
+        #Check if screen should be black
+        my_disp.screenBlack()
 
     def disp_weather(self):
         xmin = 10
@@ -462,8 +472,6 @@ class my_display:
         font_name = "freesans"
 
         my_disp.displayBg()
-        my_disp.screenBlack()
-
         self.draw_screen_border(line_color, xmin, lines)
         self.disp_time_date(font_name, text_color)
         self.disp_current_temp(font_name, text_color)
@@ -508,8 +516,10 @@ class my_display:
             multiplier += 2
             self.display_subwindow(this_day, this_day_string, multiplier)
 
-        # Update the display
+        #Check if screen should be off
         my_disp.screenBlack()
+
+        # Update the display
         pygame.display.update()
 
     def disp_hourly(self):
@@ -522,8 +532,6 @@ class my_display:
         font_name = "freesans"
 
         my_disp.displayBg()
-        my_disp.screenBlack()
-
         self.draw_screen_border(line_color, xmin, lines)
         self.disp_time_date(font_name, text_color)
         self.disp_current_temp(font_name, text_color)
@@ -531,6 +539,9 @@ class my_display:
         self.display_conditions_line(
             'Feels Like:', int(round(self.weather.apparentTemperature)),
             True)
+
+        #Screen should be off?
+        my_disp.screenBlack()
 
         try:
             wind_bearing = self.weather.windBearing
@@ -584,7 +595,6 @@ class my_display:
             self.display_subwindow(this_hour, this_hour_string, multiplier)
 
         # Update the display
-        my_disp.screenBlack()
         pygame.display.update()
 
     def disp_current_temp(self, font_name, text_color):
@@ -603,6 +613,10 @@ class my_display:
         self.screen.blit(txt, (x, self.ymax * 0.20))
         x = x + (txt_x * 1.02)
         self.screen.blit(degree_txt, (x, self.ymax * 0.2))
+
+        #Screen should be off?
+        my_disp.screenBlack()
+
 
     def disp_time_date(self, font_name, text_color):
         # Time & Date
@@ -630,6 +644,10 @@ class my_display:
         self.screen.blit(rendered_am_pm_string,
                          (full_time_string_x_position + rendered_time_x + 3,
                           self.time_date_small_y_position))
+
+        #Screen should be off?
+        my_disp.screenBlack()
+
 
     def draw_screen_border(self, line_color, xmin, lines):
         # Draw Screen Border
@@ -681,7 +699,7 @@ class my_display:
         font_name = "freesans"
 
         my_disp.displayBg()
-        my_disp.screenBlack()
+
 
         # Draw Screen Border
         #pygame.draw.line(self.screen, line_color,
@@ -750,9 +768,12 @@ class my_display:
             time.localtime(self.last_update_check))
         self.sPrint(text, small_font, self.xmax * 0.05, 11, text_color)
 
-        # Update the display
+        #Screen should be off?
         my_disp.screenBlack()
+
+        # Update the display
         pygame.display.update()
+
 
     # Save a jpg image of the screen.
     ####################################################################
@@ -865,6 +886,7 @@ while running:
         # Five minute timeout at 100ms loop rate.
         if non_weather_timeout > 3000:
             MODE = 'd'
+            currentScreen = 1
             syslog.syslog("Switched to weather mode")
     else:
         non_weather_timeout = 0
@@ -873,11 +895,13 @@ while running:
         # 15 minute timeout at 100ms loop rate
         if periodic_info_activation > 9000:
             MODE = 'i'
+            currentScreen = 0
             syslog.syslog("Switched to info mode")
         elif periodic_info_activation > 600 and curr_min_int % 2 == 0:
             MODE = 'h'
-        elif periodic_info_activation > 600:
             currentScreen = 2
+        elif periodic_info_activation > 600:
+            currentScreen = 1
             MODE = 'd'
 
     # Daily Weather Display Mode
